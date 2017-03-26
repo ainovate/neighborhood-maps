@@ -1,3 +1,4 @@
+//localStorage
 var placeInfo = [{
     name: '澳洲牛奶公司',
     wikiName: 'Australia Dairy Company',
@@ -56,6 +57,7 @@ var placeInfo = [{
     srNum: 6
 }];
 
+//
 var Place = function(data) {
     this.placeName = ko.observable(data.name);
     this.wikiPlace = ko.observable(data.wikiName);
@@ -66,7 +68,6 @@ var Place = function(data) {
     }, this);
     this.filter = ko.observable(data.filter);
     this.srNum = ko.observable(data.srNum);
-
     this.details = ko.observableArray([]);
     this.sourceWiki = ko.observable(true);
     this.wiki = ko.computed(function() {
@@ -74,6 +75,7 @@ var Place = function(data) {
         var name = this.wikiPlace();
         var wiki = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + name + '&prop=revisions&rvprop=content&format=json';
 
+        //Error for Wikipedia
         var wikiTimeout = setTimeout(function() {
             self.details.push("Oops! Failed to connect to Wikipedia");
             var alerted = localStorage.getItem('alerted') || '';
@@ -110,6 +112,7 @@ var myViewModel = function() {
     this.filterInfo = ko.observable(false);
     this.displayFilter = ko.observable('dropdown-content');
 
+    //Display the drop down menu.
     var flag;
     this.showDropDown = function() {
         if (flag !== 0) {
@@ -120,6 +123,7 @@ var myViewModel = function() {
             flag = 1;
         }
     };
+
 
     var temp;
     this.listClass = ko.observable('');
@@ -136,6 +140,7 @@ var myViewModel = function() {
         }
     };
 
+    //Display cheap places.
     this.filterListCheap = function() {
         var len = self.placeList().length;
         self.filterIndicator('Cheap Places:');
@@ -151,6 +156,7 @@ var myViewModel = function() {
         }
     };
 
+    //Display costly places.
     this.filterListCostly = function() {
         var len = self.placeList().length;
         self.filterIndicator('Costly Places:');
@@ -166,6 +172,7 @@ var myViewModel = function() {
         }
     };
 
+    //Display all places.
     this.filterListAll = function() {
         var len = self.placeList().length;
         self.filterIndicator('All places:');
@@ -177,6 +184,7 @@ var myViewModel = function() {
         }
     };
 
+    //Show the decription from Wikipedia.
     this.displayDetails = function(thisPlace) {
         self.displayWikiDetails(this);
         clickList(this.srNum());

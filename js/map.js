@@ -2,6 +2,7 @@ var map;
 
 var markers = [];
 
+//Error info for the google maps.
 var mapTimeout = setTimeout(function() {
     alert("Unable to connect to Google maps");
     $('#map').append('<h1>Sorry! The winter is coming!</h1>');
@@ -20,6 +21,7 @@ function initMap() {
 
     clearTimeout(mapTimeout);
 
+    //Store the lat&lng in locArray.
     var num = placeInfo.length;
     var locArray = [];
     for (var i = 0; i < num; i++) {
@@ -50,6 +52,7 @@ function initMap() {
 
         markers.push(marker);
 
+        //Open largeInfowindow when you click the marker.
         marker.addListener('click', function() {
             populateInfoWindow(this, largeInfowindow);
             bounceMarker(this);
@@ -57,6 +60,7 @@ function initMap() {
         });
     }
 
+    //Filter for cheapPlaceMarker
     cheapPlaceMarker = function() {
         for (var i = 0; i < locNum; i++) {
             if (placeInfo[i].filter === 0) {
@@ -68,6 +72,7 @@ function initMap() {
         }
     };
 
+    //Filter for costlyPlaceMarker.
     costlyPlaceMarker = function() {
         for (var i = 0; i < locNum; i++) {
             if (placeInfo[i].filter === 1) {
@@ -79,6 +84,7 @@ function initMap() {
         }
     };
 
+    //Filter for allPlaceMarker.
     allPlaceMarker = function() {
         for (var i = 0; i < locNum; i++) {
             markers[i].setMap(map);
@@ -89,10 +95,10 @@ function initMap() {
     clickList = function(markerId) {
         var newMarker = markers[markerId];
         bounceMarker(newMarker);
-        populateInfoWindow(newMarker, largeInfowindow);
+        popInfoWindow(newMarker, largeInfowindow);
     };
 
-    function populateInfoWindow(marker, infowindow) {
+    function popInfoWindow(marker, infowindow) {
         if (infowindow.marker != marker) {
             infowindow.setContent('');
             infowindow.marker = marker;
@@ -139,9 +145,6 @@ function initMap() {
         }
     }
 }
-
-infowindow.open(map, marker);
-
 
 function bounceMarker(marker) {
     marker.setAnimation(google.maps.Animation.BOUNCE);
