@@ -146,7 +146,7 @@ var myViewModel = function() {
         self.filterIndicator('Cheap Places:');
         self.filterInfo(true);
         for (var i = 0; i < len; i++) {
-            if (self.placeList()[i].filter() === 1) {
+            if (self.placeList()[i].filter() === 0) {
                 self.placeList()[i].listVisible(true);
                 cheapPlaceMarker();
             } else {
@@ -162,7 +162,7 @@ var myViewModel = function() {
         self.filterIndicator('Costly Places:');
         self.filterInfo(true);
         for (var i = 0; i < len; i++) {
-            if (self.placeList()[i].filter() === 0) {
+            if (self.placeList()[i].filter() === 1) {
                 self.placeList()[i].listVisible(true);
                 costlyPlaceMarker();
             } else {

@@ -54,7 +54,7 @@ function initMap() {
 
         //Open largeInfowindow when you click the marker.
         marker.addListener('click', function() {
-            populateInfoWindow(this, largeInfowindow);
+            popInfoWindow(this, largeInfowindow);
             bounceMarker(this);
             markerDisplayDetails(this.id);
         });
